@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.cdnfonts.com/css/lcd" rel="stylesheet">
+
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /*background-image: url(midnight.webp); */
+            background-repeat: no-repeat;
+            background-size: cover;
+            /* font */
+            font-family: 'LCD', sans-serif;
+            font-family: 'LCDMono2', sans-serif;
+            font-family: 'LCDMono', sans-serif;
+            font-family: 'Digitalism', sans-serif;
+            font-family: 'LCD2', sans-serif;
+
+        }
+
+        .clock {
+            border: 1px solid #ddd;
+            padding: 20px;
+            font-size: 110px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(122, 122, 122, 0.1);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 20px;
+            color: #FFF;
+            position: relative;
+            /* z-index: 999; */
+        }
+
+        #clock {
+            z-index: 999;
+        }
+
+        span {
+            color: #fff;
+            animation: blink 1s infinite linear;
+        }
+
+        #clock::before {
+            content: "00:00:00";
+            position: absolute;
+            opacity: 0.1;
+            color: #000;
+            /* display: none; */
+            z-index: 0;
+        }
+
+        @keyframes blink {
+            from {
+                opacity: 0.2;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <p></p>
+    <div class="clock">
+        <div id="clock"></div>
+    </div>
+
+
+    <script>
+        function clock() {
+            let cl = document.getElementById('clock')
+            const newdate = new Date();
+
+            //let hour = newdate.getHours();
+            //let minutes = newdate.getMinutes();
+            //let seconds = newdate.getSeconds();
+            let hour = 1;
+            let minutes = 22;
+            let seconds = 33;
+            if (hour < 10) {
+                hour = "0" + hour;
+            };
+            if (minutes < 10) {
+                minutes = "0" + minutes;
+            };
+            if (seconds < 10) {
+                seconds = "0" + seconds;
+            };
+
+            cl.innerHTML = hour + " " + minutes + ":" + seconds;
+            cl.innerHTML = `${hour}<span>:</span>${minutes}<span>:</span>${seconds}`;
+
+            //morning 12 -- 00
+            //dawn 6 -- 8
+            //daytime 8 -- 8
+            //noon 12 -- 12
+            //evening 5 -- 17
+            //night 8 -- 20
+            //midnight 12 -- 24
+
+
+            if (hour >= 5 && hour < 12) {
+                document.body.style.backgroundImage = "url(back.png)"; // Morning
+            } else if (hour >= 12 && hour < 16) {
+                document.body.style.backgroundImage = "url(morning.jpg)"; // Afternoon
+            } else if (hour >= 16 && hour < 20) {
+                document.body.style.backgroundImage = "url(afteronoon.jpg)"; // Evening
+            } else if (hour >= 20 && hour < 24) {
+                document.body.style.backgroundImage = "url(midnight.webp)"; // Evening
+            }
+            else {
+                document.body.style.backgroundImage= "url(nigth.jpg)"; // Night
+            }
+        }
+
+        setInterval(clock, 1000);
+    </script>
+</body>
+
+</html>
